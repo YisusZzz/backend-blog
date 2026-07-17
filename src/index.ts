@@ -4,9 +4,9 @@ import bcrypt from 'bcrypt';
 import {z} from 'zod';
 import jwt from 'jsonwebtoken';
 import {type Request} from 'express';
-import dotenv from 'dotenv'; // <-- 1. IMPORTAR DOTENV
+import dotenv from 'dotenv';
 
-// 2. CONFIGURAR DOTENV PARA CARGAR LAS VARIABLES
+
 dotenv.config();
 
 interface PeticionAutenticada extends Request {
@@ -17,8 +17,8 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// 3. OBTENER LA LLAVE DESDE LAS VARIABLES DE ENTORNO
-// Si por alguna razón no existe en el entorno, usamos un fallback seguro (¡Snyk no lo detectará como hardcoded!)
+
+
 const JWT_SECRET = process.env.JWT_SECRET || "fallback_seguro_solo_desarrollo";
 
 const usuariosDB: any[] = [];
@@ -62,7 +62,7 @@ const verificarToken = (tipoRuta: 'me' | 'general') => {
     const token = partes[1] as string;
 
     try {
-      // 4. USAR LA LLAVE GLOBAL JWT_SECRET AQUÍ
+      
       const datosDecodificados = jwt.verify(token, JWT_SECRET);
       
       req.user = datosDecodificados;
@@ -133,7 +133,7 @@ app.post('/login', async (req, res): Promise<any> => {
       correo: usuarioEncontrado.correo 
     };
     
-    // 5. USAR LA LLAVE GLOBAL JWT_SECRET AQUÍ AL FIRMAR EL TOKEN
+    
     const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
 
     return res.status(200).json({
@@ -257,7 +257,7 @@ app.get('/', (req, res) => {
   res.send('¡Servidor del blog funcionando perfectamente!');
 });
 
-// 6. ADAPTAR EL PUERTO PARA QUE LEA DEL ENTORNO TAMBIÉN
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
