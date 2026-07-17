@@ -30,7 +30,7 @@ npm run dev
 
 El servidor estará escuchando peticiones en `http://localhost:3000` (o el puerto que hayas configurado en tus variables de entorno).
 
-## 🤖 Uso de Inteligencia Artificial
+## Uso de Inteligencia Artificial
 
 Durante el desarrollo de este proyecto se utilizaron herramientas de inteligencia artificial (**Claude** y **Gemini**) como apoyo en las siguientes etapas:
 
